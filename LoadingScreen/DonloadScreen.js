@@ -13,27 +13,55 @@ import Animated, {
 } from 'react-native-reanimated';
 import {transform} from '@babel/core';
 
-const {width, height} = Dimensions.get('screen');
+const {width, height} = Dimensions.get('window');
+const WIDTH = width + 105;
+const HEIGHT = height - 50;
 
 export default function DonloadScreen() {
   const x = useSharedValue(0);
   const y = useSharedValue(0);
+  const z = useSharedValue(50)
 
-
-  const rocketFly = () => {
-    withRepeat(
-      withTiming(500, {
-        duration: 1000,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-      }),
+  x.value = withRepeat(
+    withSequence(
+      withTiming(-WIDTH, {duration: 5000, easing: Easing.bezier(0.12, 0, 0.39, 0)}),
+      withTiming(0, {duration: 5000, easing: Easing.bezier(0.12, 0, 0.39, 0)}),
     ),
-      -5,
-      true;
-  };
+    -1,
+    true,
+  );
+
+  y.value = withRepeat(
+    withSequence(
+      withTiming(0, {duration: 1666}),
+      withTiming(-100, {duration: 1666}),
+      withTiming(0, {duration: 1666}),
+      withTiming(0, {duration: 1666}),
+      withTiming(100, {duration: 1666}),
+      withTiming(0, {duration: 1666}),
+    ),
+    -1,
+    true,
+  );
+
+  z.value = withRepeat(
+    withSequence(
+      withTiming(-95, {duration: 2500}),
+      withTiming(-165, {duration: 2500}),
+      withTiming(-280, {duration: 2500}),
+      withTiming(-350, {duration: 2500}),
+    ),
+    -1,
+    true,
+  );
 
   const style = useAnimatedStyle(() => {
     return {
-      transform: [{translateX: rocketFly}],
+      transform: [
+        {translateX: x.value},
+        {translateY: y.value},
+        {rotateZ: `${z.value.toString()}deg`},
+      ],
     };
   });
 
@@ -42,7 +70,7 @@ export default function DonloadScreen() {
       <View style={styles.rocket}>
         <Animated.Image
           style={[
-            {width: 40, height: 40, position: 'absolute', bottom: 100},
+            {width: 40, height: 40, position: 'absolute', bottom: 100, right: -110},
             style,
           ]}
           source={require('../img/rocket.png')}
@@ -66,7 +94,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rocket: {
-    backgroundColor: '#cfeafc',
     width: '100%',
     height: '40%',
     marginTop: 20,
