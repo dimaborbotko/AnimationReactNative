@@ -20,7 +20,7 @@ const HEIGHT = height - 50;
 export default function DonloadScreen() {
   const x = useSharedValue(0);
   const y = useSharedValue(0);
-  const z = useSharedValue(50)
+  const z = useSharedValue(0)
 
   x.value = withRepeat(
     withSequence(
