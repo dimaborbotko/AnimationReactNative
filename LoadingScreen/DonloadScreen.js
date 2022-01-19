@@ -20,12 +20,15 @@ const HEIGHT = height - 50;
 export default function DonloadScreen() {
   const x = useSharedValue(0);
   const y = useSharedValue(0);
-  const z = useSharedValue(0)
+  const z = useSharedValue(0);
 
   x.value = withRepeat(
     withSequence(
-      withTiming(-WIDTH, {duration: 5000, easing: Easing.bezier(0.12, 0, 0.39, 0)}),
-      withTiming(0, {duration: 5000, easing: Easing.bezier(0.12, 0, 0.39, 0)}),
+      withTiming(-WIDTH, {
+        duration: 2500,
+        easing: Easing.bezier(0.12, 0, 0.39, 0),
+      }),
+      withTiming(0, {duration: 2500, easing: Easing.bezier(0.12, 0, 0.39, 0)}),
     ),
     -1,
     true,
@@ -33,12 +36,12 @@ export default function DonloadScreen() {
 
   y.value = withRepeat(
     withSequence(
-      withTiming(0, {duration: 1666}),
-      withTiming(-100, {duration: 1666}),
-      withTiming(0, {duration: 1666}),
-      withTiming(0, {duration: 1666}),
-      withTiming(100, {duration: 1666}),
-      withTiming(0, {duration: 1666}),
+      withTiming(0, {duration: 833}),
+      withTiming(-120, {duration: 833}),
+      withTiming(40, {duration: 833}),
+      withTiming(50, {duration: 833}),
+      withTiming(100, {duration: 833}),
+      withTiming(-30, {duration: 833}),
     ),
     -1,
     true,
@@ -46,10 +49,11 @@ export default function DonloadScreen() {
 
   z.value = withRepeat(
     withSequence(
-      withTiming(-95, {duration: 2500}),
-      withTiming(-165, {duration: 2500}),
-      withTiming(-280, {duration: 2500}),
-      withTiming(-350, {duration: 2500}),
+      withTiming(-95, {duration: 1250}),
+      withTiming(-175, {duration: 1000}),
+      withTiming(-140, {duration: 250}),
+      withTiming(-280, {duration: 1250}),
+      withTiming(-355, {duration: 1250}),
     ),
     -1,
     true,
@@ -70,7 +74,13 @@ export default function DonloadScreen() {
       <View style={styles.rocket}>
         <Animated.Image
           style={[
-            {width: 40, height: 40, position: 'absolute', bottom: 100, right: -110},
+            {
+              width: 40,
+              height: 40,
+              position: 'absolute',
+              bottom: 100,
+              right: -110,
+            },
             style,
           ]}
           source={require('../img/rocket.png')}
@@ -79,10 +89,10 @@ export default function DonloadScreen() {
       <View style={styles.blinkLoad}>
         <Blink>
           <Text style={styles.load}>Loading</Text>
+          <DotsLoad duration1={500} duration2={1500} text={'.'} />
+          <DotsLoad duration1={1000} duration2={1000} text={'.'} />
+          <DotsLoad duration1={1500} duration2={500} text={'.'} />
         </Blink>
-        <DotsLoad duration1={500} duration2={1500} text={'.'} />
-        <DotsLoad duration1={1000} duration2={1000} text={'.'} />
-        <DotsLoad duration1={1500} duration2={500} text={'.'} />
       </View>
     </View>
   );
